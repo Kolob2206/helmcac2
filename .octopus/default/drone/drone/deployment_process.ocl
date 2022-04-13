@@ -1,0 +1,34 @@
+step "Deploy Helm" {
+    properties = {
+        Octopus.Action.TargetRoles = "cloud"
+    }
+
+    action {
+        properties = {
+            Octopus.Action.Package.FeedId = "Helm 1"
+            Octopus.Action.Package.PackageId = "drone"
+            Octopus.Action.RunOnServer = "true"
+            Octopus.Action.Template.Id = "ActionTemplates-1135"
+            Octopus.Action.Template.Version = "4"
+            OctopusUseBundledTooling = "False"
+            pack = "{\"PackageId\":\"drone\",\"FeedId\":\"Helm 1\"}"
+        }
+        worker_pool_variable = ""
+
+        container {
+            feed = "docker hub"
+            image = "octopusdeploy/worker-tools:3.3.2-ubuntu.18.04"
+        }
+
+        packages {
+            acquisition_location = "Server"
+            feed = "Helm 1"
+            package_id = "drone"
+            properties = {
+                PackageParameterName = "pack"
+                SelectionMode = "deferred"
+                ValuesFilePath = ""
+            }
+        }
+    }
+}

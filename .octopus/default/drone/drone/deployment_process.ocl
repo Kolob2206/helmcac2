@@ -9,9 +9,9 @@ step "Deploy Helm" {
             Octopus.Action.Package.PackageId = "drone"
             Octopus.Action.RunOnServer = "true"
             Octopus.Action.Template.Id = "ActionTemplates-1135"
-            Octopus.Action.Template.Version = "4"
-            OctopusUseBundledTooling = "False"
+            Octopus.Action.Template.Version = "7"
             pack = "{\"PackageId\":\"drone\",\"FeedId\":\"Helm 1\"}"
+            Template.Helm.Values = "test"
         }
         worker_pool_variable = ""
 
@@ -27,7 +27,6 @@ step "Deploy Helm" {
             properties = {
                 PackageParameterName = "pack"
                 SelectionMode = "deferred"
-                ValuesFilePath = ""
             }
         }
     }
